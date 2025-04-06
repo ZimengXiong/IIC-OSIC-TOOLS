@@ -511,6 +511,11 @@ RUN git clone --depth=1 https://github.com/mole99/ota-5t.git ${EXAMPLES}/cace/ot
 # Finalize setup/install
 RUN $STARTUPDIR/scripts/post_install.sh
 
+RUN echo "ubuntu ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ubuntu && \
+    chmod 0440 /etc/sudoers.d/ubuntu
+
+COPY install_zsh.sh ~/
+
 WORKDIR ${DESIGNS}
 USER 1000:1000
 ENTRYPOINT ["/dockerstartup/scripts/ui_startup.sh"]
